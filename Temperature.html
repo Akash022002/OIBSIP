@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #converter {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="converter">
+        <h1>Temperature Converter</h1>
+        <input type="number" id="temperatureInput" placeholder="Enter temperature" required>
+        <select id="unitSelect">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <button onclick="convertTemperature()">Convert</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const temperatureInput = parseFloat(document.getElementById("temperatureInput").value);
+            const unitSelect = document.getElementById("unitSelect");
+            const selectedUnit = unitSelect.options[unitSelect.selectedIndex].value;
+            let result = "";
+
+            if (isNaN(temperatureInput)) {
+                result = "Please enter a valid number.";
+            } else {
+                if (selectedUnit === "celsius") {
+                    const fahrenheit = (temperatureInput * 9/5) + 32;
+                    const kelvin = temperatureInput + 273.15;
+                    result = `${temperatureInput}°C is equal to ${fahrenheit.toFixed(2)}°F and ${kelvin.toFixed(2)}K.`;
+                } else if (selectedUnit === "fahrenheit") {
+                    const celsius = (temperatureInput - 32) * 5/9;
+                    const kelvin = (temperatureInput - 32) * 5/9 + 273.15;
+                    result = `${temperatureInput}°F is equal to ${celsius.toFixed(2)}°C and ${kelvin.toFixed(2)}K.`;
+                } else {
+                    const celsius = temperatureInput - 273.15;
+                    const fahrenheit = (temperatureInput - 273.15) * 9/5 + 32;
+                    result = `${temperatureInput}K is equal to ${celsius.toFixed(2)}°C and ${fahrenheit.toFixed(2)}°F.`;
+                }
+            }
+
+            document.getElementById("result").textContent = result;
+        }
+    </script>
+</body>
+</html>
